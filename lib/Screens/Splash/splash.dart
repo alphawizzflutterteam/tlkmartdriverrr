@@ -35,24 +35,25 @@ class _SplashScreen extends State<Splash> {
     deviceWidth = MediaQuery.of(context).size.width;
     backgroundColor: Color(0xffDF4E17);
     theme: new ThemeData(scaffoldBackgroundColor: const Color(0xffDF4E17));
-    return Scaffold(
-      // backgroundColor: Color(0xffDF4E17),
-      key: _scaffoldKey,
-      body: Container(
-        // width: double.infinity,
-        // height: double.infinity,
-        // decoration: back(),
-        child: Center(
-            child: Image.asset("assets/images/splashlogo.jpeg", fit: BoxFit.fill)),
-        // child: Center(
-        //   child: Image.asset(
-        //     'assets/images/splash.png',
-        //     width: 250,
-        //     height: 250,
-        //   ),
-        // ),
-      ),
-    );
+    return
+      Scaffold(
+        key: _scaffoldKey,
+        body: Container(
+          // width: double.infinity,
+          // height: double.infinity,
+          // decoration: back(),
+          child: Center(
+            child: Center(
+                child: Image.asset("assets/images/splash1.png",
+                    fit: BoxFit.cover)),
+            // child: Image.asset(
+            //   'assets/images/splashlogo.png',
+            //   width: 250,
+            //   height: 250,
+            // ),
+          ),
+        ),
+      );
   }
 
   startTime() async {

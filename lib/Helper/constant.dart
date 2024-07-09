@@ -1,7 +1,7 @@
-final String appName = 'Farmbuz Driver';
+final String appName = 'Tlkmart Driver';
 
 // final String baseUrl = 'https://developmentalphawizz.com/jmd_ganaadi/delivery_boy/app/v1/api/';
-final String baseUrl = 'https://farmbuz.com/farmbuz_login/delivery_boy/app/v1/api/';
+final String baseUrl = 'https://developmentalphawizz.com/tlk_mart/delivery_boy/app/v1/api/';
 
 final int timeOut = 50;
 const int perPage = 10;

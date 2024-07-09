@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:deliveryboy_multivendor/Helper/Session.dart';
 import 'package:deliveryboy_multivendor/Helper/app_btn.dart';
 import 'package:deliveryboy_multivendor/Helper/color.dart';
@@ -13,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../livetracking.dart';
 
 
@@ -181,7 +179,7 @@ class StateOrder extends State<OrderDetail> with TickerProviderStateMixin {
 
     _isCancleable = model.isCancleable == "1" ? true : false;
     _isReturnable = model.isReturnable == "1" ? true : false;
-
+    var orderItem = model.itemList!.firstWhere((element) => element.status != CANCLED);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: lightWhite,
@@ -236,6 +234,116 @@ class StateOrder extends State<OrderDetail> with TickerProviderStateMixin {
                                           .subtitle2!
                                           .copyWith(color: lightBlack2),
                                     ),
+                                    widget.model!.itemList!.length >= 1
+                                        ? Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0),
+                                              child: DropdownButtonFormField(
+                                                dropdownColor: lightWhite,
+                                                isDense: true,
+                                                iconEnabledColor: fontColor,
+                                                //iconSize: 40,
+                                                hint: Text(
+                                                  "Update Status",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle2!
+                                                      .copyWith(
+                                                      color: fontColor,
+                                                      fontWeight:
+                                                      FontWeight.bold),
+                                                ),
+                                                decoration: const InputDecoration(
+                                                  filled: true,
+                                                  isDense: true,
+                                                  fillColor: lightWhite,
+                                                  contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 10),
+                                                  enabledBorder:
+                                                  OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: fontColor),
+                                                  ),
+                                                ),
+                                                value: orderItem.status,
+                                                onChanged: (dynamic newValue) {
+                                                  setState(() {
+                                                    orderItem.curSelected =
+                                                        newValue;
+                                                  });
+                                                },
+                                                items:
+                                                statusList.map((String st) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: st,
+                                                    child: Text(
+                                                      capitalize(st),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .subtitle2!
+                                                          .copyWith(
+                                                          color: fontColor,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ),
+                                          ),
+                                          RawMaterialButton(
+                                            constraints:
+                                            const BoxConstraints.expand(
+                                                width: 42, height: 42),
+                                            onPressed: () {
+                                              if (orderItem.item_otp != null &&
+                                                  orderItem
+                                                      .item_otp!.isNotEmpty &&
+                                                  orderItem.item_otp != "0" &&
+                                                  orderItem.curSelected ==
+                                                      DELIVERD) {
+                                                otpDialog(
+                                                    orderItem.curSelected,
+                                                    orderItem.item_otp,
+                                                    model.id,
+                                                    true,
+                                                    0);
+                                              } else {
+                                                updateOrder(
+                                                    orderItem.curSelected,
+                                                    model.id,
+                                                    true,
+                                                    0,
+                                                    orderItem.item_otp);
+                                              }
+                                            },
+                                            elevation: 2.0,
+                                            fillColor: fontColor,
+                                            padding:
+                                            const EdgeInsets.only(left: 5),
+                                            child: const Align(
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                Icons.send,
+                                                size: 20,
+                                                color: white,
+                                              ),
+                                            ),
+                                            shape: const CircleBorder(),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                        : Container()
                                   ],
                                 ))),
                         model.delDate != null && model.delDate!.isNotEmpty
@@ -902,116 +1010,116 @@ class StateOrder extends State<OrderDetail> with TickerProviderStateMixin {
                                   .subtitle1!
                                   .copyWith(color: fontColor),
                             ),
-                            widget.model!.itemList!.length >= 1
-                                ? Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 8.0),
-                                      child: DropdownButtonFormField(
-                                        dropdownColor: lightWhite,
-                                        isDense: true,
-                                        iconEnabledColor: fontColor,
-                                        //iconSize: 40,
-                                        hint: Text(
-                                          "Update Status",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2!
-                                              .copyWith(
-                                              color: fontColor,
-                                              fontWeight:
-                                              FontWeight.bold),
-                                        ),
-                                        decoration: const InputDecoration(
-                                          filled: true,
-                                          isDense: true,
-                                          fillColor: lightWhite,
-                                          contentPadding:
-                                          EdgeInsets.symmetric(
-                                              vertical: 10,
-                                              horizontal: 10),
-                                          enabledBorder:
-                                          OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: fontColor),
-                                          ),
-                                        ),
-                                        value: orderItem.status,
-                                        onChanged: (dynamic newValue) {
-                                          setState(() {
-                                            orderItem.curSelected =
-                                                newValue;
-                                          });
-                                        },
-                                        items:
-                                        statusList.map((String st) {
-                                          return DropdownMenuItem<String>(
-                                            value: st,
-                                            child: Text(
-                                              capitalize(st),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle2!
-                                                  .copyWith(
-                                                  color: fontColor,
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .bold),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                  RawMaterialButton(
-                                    constraints:
-                                    const BoxConstraints.expand(
-                                        width: 42, height: 42),
-                                    onPressed: () {
-                                      if (orderItem.item_otp != null &&
-                                          orderItem
-                                              .item_otp!.isNotEmpty &&
-                                          orderItem.item_otp != "0" &&
-                                          orderItem.curSelected ==
-                                              DELIVERD) {
-                                        otpDialog(
-                                            orderItem.curSelected,
-                                            orderItem.item_otp,
-                                            model.id,
-                                            true,
-                                            i);
-                                      } else {
-                                        updateOrder(
-                                            orderItem.curSelected,
-                                            model.id,
-                                            true,
-                                            i,
-                                            orderItem.item_otp);
-                                      }
-                                    },
-                                    elevation: 2.0,
-                                    fillColor: fontColor,
-                                    padding:
-                                    const EdgeInsets.only(left: 5),
-                                    child: const Align(
-                                      alignment: Alignment.center,
-                                      child: Icon(
-                                        Icons.send,
-                                        size: 20,
-                                        color: white,
-                                      ),
-                                    ),
-                                    shape: const CircleBorder(),
-                                  )
-                                ],
-                              ),
-                            )
-                                : Container()
+                            // widget.model!.itemList!.length >= 1
+                            //     ? Padding(
+                            //   padding: const EdgeInsets.symmetric(
+                            //       vertical: 10.0),
+                            //   child: Row(
+                            //     children: [
+                            //       Expanded(
+                            //         child: Padding(
+                            //           padding: const EdgeInsets.only(
+                            //               right: 8.0),
+                            //           child: DropdownButtonFormField(
+                            //             dropdownColor: lightWhite,
+                            //             isDense: true,
+                            //             iconEnabledColor: fontColor,
+                            //             //iconSize: 40,
+                            //             hint: Text(
+                            //               "Update Status",
+                            //               style: Theme.of(context)
+                            //                   .textTheme
+                            //                   .subtitle2!
+                            //                   .copyWith(
+                            //                   color: fontColor,
+                            //                   fontWeight:
+                            //                   FontWeight.bold),
+                            //             ),
+                            //             decoration: const InputDecoration(
+                            //               filled: true,
+                            //               isDense: true,
+                            //               fillColor: lightWhite,
+                            //               contentPadding:
+                            //               EdgeInsets.symmetric(
+                            //                   vertical: 10,
+                            //                   horizontal: 10),
+                            //               enabledBorder:
+                            //               OutlineInputBorder(
+                            //                 borderSide: BorderSide(
+                            //                     color: fontColor),
+                            //               ),
+                            //             ),
+                            //             value: orderItem.status,
+                            //             onChanged: (dynamic newValue) {
+                            //               setState(() {
+                            //                 orderItem.curSelected =
+                            //                     newValue;
+                            //               });
+                            //             },
+                            //             items:
+                            //             statusList.map((String st) {
+                            //               return DropdownMenuItem<String>(
+                            //                 value: st,
+                            //                 child: Text(
+                            //                   capitalize(st),
+                            //                   style: Theme.of(context)
+                            //                       .textTheme
+                            //                       .subtitle2!
+                            //                       .copyWith(
+                            //                       color: fontColor,
+                            //                       fontWeight:
+                            //                       FontWeight
+                            //                           .bold),
+                            //                 ),
+                            //               );
+                            //             }).toList(),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       RawMaterialButton(
+                            //         constraints:
+                            //         const BoxConstraints.expand(
+                            //             width: 42, height: 42),
+                            //         onPressed: () {
+                            //           if (orderItem.item_otp != null &&
+                            //               orderItem
+                            //                   .item_otp!.isNotEmpty &&
+                            //               orderItem.item_otp != "0" &&
+                            //               orderItem.curSelected ==
+                            //                   DELIVERD) {
+                            //             otpDialog(
+                            //                 orderItem.curSelected,
+                            //                 orderItem.item_otp,
+                            //                 model.id,
+                            //                 true,
+                            //                 i);
+                            //           } else {
+                            //             updateOrder(
+                            //                 orderItem.curSelected,
+                            //                 model.id,
+                            //                 true,
+                            //                 i,
+                            //                 orderItem.item_otp);
+                            //           }
+                            //         },
+                            //         elevation: 2.0,
+                            //         fillColor: fontColor,
+                            //         padding:
+                            //         const EdgeInsets.only(left: 5),
+                            //         child: const Align(
+                            //           alignment: Alignment.center,
+                            //           child: Icon(
+                            //             Icons.send,
+                            //             size: 20,
+                            //             color: white,
+                            //           ),
+                            //         ),
+                            //         shape: const CircleBorder(),
+                            //       )
+                            //     ],
+                            //   ),
+                            // )
+                            //     : Container()
                           ],
                         ),
                       ),
@@ -1030,16 +1138,20 @@ class StateOrder extends State<OrderDetail> with TickerProviderStateMixin {
         setState(() {
           _isProgress = true;
         });
-
         var parameter = {
           ORDERID: id,
           STATUS: status,
           DEL_BOY_ID: CUR_USERID,
           OTP: otp
         };
-        if (item) parameter[ORDERITEMID] = widget.model!.itemList![index].id;
+        try {
+          var orderItem = widget.model!.itemList!.firstWhere((element) => element.status != CANCLED);
+          if (item) parameter[ORDERITEMID] = orderItem.id;
+        } catch (e) {
+          print(e);
+        }
 
-        print(parameter.toString());
+        print("parameter.toString()${parameter.toString()}");
         Response response =
         await post(updateOrderItemApi, body: parameter, headers: headers)
             .timeout(Duration(seconds: timeOut));

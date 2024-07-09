@@ -49,7 +49,7 @@ back() {
     gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [primary, secondary],
+        colors: [primary, primary],
         stops: [0, 1]),
     // color: Color(0xff0022EE),
   );

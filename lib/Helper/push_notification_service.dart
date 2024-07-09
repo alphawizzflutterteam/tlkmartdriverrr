@@ -26,6 +26,7 @@ class PushNotificationService {
   Future initialise() async {
     iOSPermission();
     messaging.getToken().then((token) async {
+      print("FCM token :$token");
       CUR_USERID = await getPrefrence(ID);
       if (CUR_USERID != null && CUR_USERID != "") _registerToken(token);
     });

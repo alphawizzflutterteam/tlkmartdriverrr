@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deliveryboy_multivendor/Helper/Session.dart';
 import 'package:deliveryboy_multivendor/Helper/app_btn.dart';
@@ -18,7 +17,6 @@ import 'package:http/http.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'notification_lIst.dart';
 import 'order_detail.dart';
 import 'privacy_policy.dart';

@@ -370,25 +370,25 @@ class StateOrder extends State<OrderDetail> with TickerProviderStateMixin {
                           },
                         ),
 
-                        InkWell(
-                          onTap: () {
+                        // InkWell(
+                        //   onTap: () {
+                        //
+                        //     Navigator.push(context,MaterialPageRoute(builder: (context) => UserMapScreen(DriverId: model.deliveryBoyId,userlang: model.longitude,userlat: model.latitude),) );
+                        //   },
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //
+                        //
+                        //       border: Border.all(color: Colors.black12),
+                        //       borderRadius: BorderRadius.circular(3),),
+                        //
+                        //     height: 50,
+                        //     width: MediaQuery.of(context).size.width,
+                        //     child: Center(child: Text('Track To Driver',style: TextStyle(fontSize: 13,color: Colors.red),),),
+                        //   ),
+                        // ),
 
-                            Navigator.push(context,MaterialPageRoute(builder: (context) => UserMapScreen(DriverId: model.deliveryBoyId,userlang: model.longitude,userlat: model.latitude),) );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-
-
-                              border: Border.all(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(3),),
-
-                            height: 50,
-                            width: MediaQuery.of(context).size.width,
-                            child: Center(child: Text('Track To Driver',style: TextStyle(fontSize: 13,color: Colors.red),),),
-                          ),
-                        ),
-
-                        SizedBox(height: 10,),
+                        // SizedBox(height: 10,),
                         sellerDetails(),
                         shippingDetails(),
                         priceDetails(),

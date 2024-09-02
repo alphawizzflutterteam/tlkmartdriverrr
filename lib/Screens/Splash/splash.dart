@@ -44,7 +44,7 @@ class _SplashScreen extends State<Splash> {
           // decoration: back(),
           child: Center(
             child: Center(
-                child: Image.asset("assets/images/splash1.png",
+                child: Image.asset("assets/images/tickmart.png",
                     fit: BoxFit.cover)),
             // child: Image.asset(
             //   'assets/images/splashlogo.png',

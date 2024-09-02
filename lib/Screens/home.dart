@@ -628,6 +628,7 @@ class StateHome extends State<Home> with TickerProviderStateMixin {
         Response response =
         await post(getBoyDetailApi, body: parameter, headers: headers)
             .timeout(Duration(seconds: timeOut));
+        print("UserDetailPara------${parameter}");
 
         var getdata = json.decode(response.body);
         bool error = getdata["error"];

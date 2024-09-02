@@ -17,6 +17,8 @@ final Uri sendWithReqApi = Uri.parse(baseUrl + 'send_withdrawal_request');
 final Uri getWithReqApi = Uri.parse(baseUrl + 'get_withdrawal_request');
 
 
+
+
 const String USERNAME = 'username';
 const String ADDRESS = 'address';
 const String EMAIL = 'email';

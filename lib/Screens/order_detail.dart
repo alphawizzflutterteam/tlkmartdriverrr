@@ -664,7 +664,7 @@ class StateOrder extends State<OrderDetail> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("$TAXPER (${widget.model!.taxPer!}) :",
+                    Text("$TAXPER (SGST + CGST / IGST) :",
                         style: Theme.of(context)
                             .textTheme
                             .button!

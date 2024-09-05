@@ -565,6 +565,7 @@ class StateHome extends State<Home> with TickerProviderStateMixin {
           LIMIT: perPage.toString(),
           OFFSET: offset.toString()
         };
+        print("Anjali get order_______________${parameter}");
         if (activeStatus != null) {
           if (activeStatus == awaitingPayment) activeStatus = "awaiting";
           parameter[ACTIVE_STATUS] = activeStatus;
@@ -573,6 +574,7 @@ class StateHome extends State<Home> with TickerProviderStateMixin {
         Response response =
         await post(getOrdersApi, body: parameter, headers: headers)
             .timeout(Duration(seconds: timeOut));
+        print("Anjali params________________${parameter}{getOrdersApi}");
 
         var getdata = json.decode(response.body);
         bool error = getdata["error"];

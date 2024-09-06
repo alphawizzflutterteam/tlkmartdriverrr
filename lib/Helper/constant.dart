@@ -1,6 +1,6 @@
 final String appName = 'TLKMART Delivery Partner';
 
-  final String baseUrl = 'https://developmentalphawizz.com/tlk_mart/delivery_boy/app/v1/api/';
+  final String baseUrl = 'https://admin.tlkmart.com/delivery_boy/app/v1/api/';
 
 final int timeOut = 50;
 const int perPage = 10;
@@ -122,3 +122,5 @@ const String noNoti = 'No Notification Found..!!';
 
 
 final String jwtKey = "e1e421dceee9ea718ab764ea4fdef95629e7f415";
+
+

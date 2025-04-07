@@ -6,22 +6,47 @@ import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'Helper/color.dart';
 import 'Helper/constant.dart';
+import 'Helper/notification_service.dart';
 import 'Helper/push_notification_service.dart';
 import 'Screens/Splash/splash.dart';
 
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await _requestLocationPermission();
+//   await Firebase.initializeApp();
+//   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+//     statusBarColor: Colors.transparent, // status bar color
+//     systemNavigationBarColor: Colors.transparent,
+//   ));
+//   final pushNotificationService = PushNotificationService();
+//   pushNotificationService.initialise();
+//   FirebaseMessaging.onBackgroundMessage(myForgroundMessageHandler);
+//   runApp(MyApp());
+// }
+
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _requestLocationPermission();
   await Firebase.initializeApp();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // status bar color
-    systemNavigationBarColor: Colors.transparent,
-  ));
-  final pushNotificationService = PushNotificationService();
-  pushNotificationService.initialise();
-  FirebaseMessaging.onBackgroundMessage(myForgroundMessageHandler);
+
+  LocalNotificationService.initialize();
+
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
+  try {
+    String? token = await FirebaseMessaging.instance.getToken();
+    print("-----------token:-----${token}");
+  } on FirebaseException {
+    print('__________FirebaseException_____________');
+  }
+
   runApp(MyApp());
 }
+
 Future<void> _requestLocationPermission() async {
   // Check if the permission is already granted
   if (await Permission.location.isGranted) {
@@ -39,6 +64,7 @@ Future<void> _requestLocationPermission() async {
     // Handle the denial, for example, show a message or disable location-based features
   }
 }
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 

@@ -128,7 +128,7 @@ class Order_Model {
         longitude: parsedJson[LONGITUDE],
         delDate: parsedJson[DEL_DATE] != null
             ? DateFormat('dd-MM-yyyy')
-            .format(DateTime.parse(parsedJson[DEL_DATE]))
+                .format(DateTime.parse(parsedJson[DEL_DATE]))
             : '',
         delTime: parsedJson[DEL_TIME] != null ? parsedJson[DEL_TIME] : '',
         deliveryBoyId: parsedJson[DELIVERY_BOY_ID]);
@@ -160,39 +160,41 @@ class OrderItem {
       sellerAddress,
       storeLatitude,
       storeLongitude,
-      storeImage;
+      storeImage,
+      handling_fee;
 
   List<String?>? listStatus = [];
   List<String?>? listDate = [];
 
   OrderItem(
       {this.qty,
-        this.id,
-        this.name,
-        this.price,
-        this.subTotal,
-        this.status,
-        this.image,
-        this.varientId,
-        this.listDate,
-        this.listStatus,
-        this.isCancle,
-        this.isReturn,
-        this.isAlrReturned,
-        this.isAlrCancelled,
-        this.rtnReqSubmitted,
-        this.attr_name,
-        this.productId,
-        this.varient_values,
-        this.item_otp,
-        this.curSelected,
-        this.sellerName,
-        this.storeName,
-        this.sellerMobileNumber,
-        this.sellerAddress,
-        this.storeLatitude,
-        this.storeLongitude,
-        this.storeImage});
+      this.id,
+      this.name,
+      this.price,
+      this.subTotal,
+      this.status,
+      this.image,
+      this.varientId,
+      this.listDate,
+      this.listStatus,
+      this.isCancle,
+      this.isReturn,
+      this.isAlrReturned,
+      this.isAlrCancelled,
+      this.rtnReqSubmitted,
+      this.attr_name,
+      this.productId,
+      this.varient_values,
+      this.item_otp,
+      this.curSelected,
+      this.sellerName,
+      this.storeName,
+      this.sellerMobileNumber,
+      this.sellerAddress,
+      this.storeLatitude,
+      this.storeLongitude,
+      this.storeImage,
+      this.handling_fee});
 
   factory OrderItem.fromJson(Map<String, dynamic> json) {
     List<String?> lStatus = [];
@@ -230,6 +232,7 @@ class OrderItem {
         storeLatitude: json[STORE_LATITUDE],
         storeLongitude: json[STORE_LONGITUDE],
         storeImage: json[STORE_IMAGE],
-        sellerMobileNumber: json[SELLER_MOB_NUM]);
+        sellerMobileNumber: json[SELLER_MOB_NUM],
+        handling_fee: json['handling_fee']);
   }
 }

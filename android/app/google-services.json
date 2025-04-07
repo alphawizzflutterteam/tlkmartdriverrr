@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "550292988221",
     "project_id": "tlkmart-user",
-    "storage_bucket": "tlkmart-user.appspot.com"
+    "storage_bucket": "tlkmart-user.firebasestorage.app"
   },
   "client": [
     {
@@ -10,6 +10,25 @@
         "mobilesdk_app_id": "1:550292988221:android:3311b31f3aa94dd43b2554",
         "android_client_info": {
           "package_name": "com.tlkmart.driver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0Rt6hzJ6NpUct9xSJ-LaWFVAU0Na-4y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550292988221:android:10b1234962f3f0ab3b2554",
+        "android_client_info": {
+          "package_name": "com.tlkmart.seller"
         }
       },
       "oauth_client": [],
